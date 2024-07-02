@@ -47,9 +47,9 @@ class MyHomePage extends StatelessWidget {
         switch (index) {
           case 0:
             return HomeScreen();
-          case 2:
+          case 1:
             return TransactionHistory();
-          case 3:
+          case 2:
             return ScheduledScreen();
           default:
             return HomeScreen();
@@ -149,10 +149,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ],
           ),
           Positioned(
-            top: 750,
-            bottom: 110,
-            left: 110,
-            right: 110,
+            bottom: 16.0,
+            left: 16.0,
+            right: 16.0,
             child: FloatingActionButton.large(
               backgroundColor: Color.fromARGB(255, 23, 177, 154),
               foregroundColor: Colors.white,
@@ -165,8 +164,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(CupertinoIcons
-                      .plus_circle), // Using the Cupertino icon for send money
+                  Icon(CupertinoIcons.plus_circle), // Using the Cupertino icon for send money
                   SizedBox(width: 8.0),
                   Text('SEND NEW'),
                 ],
@@ -263,61 +261,107 @@ class TransactionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            date,
-            style: TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Card(
-            elevation: 2,
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Text(name[0]),
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      elevation: 3.0,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              time,
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
               ),
-              title: Text(name),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(phone),
-                  Row(
-                    children: [
-                      Text(type),
-                      SizedBox(width: 8.0),
-                      Text(note),
+            ),
+            SizedBox(height: 8.0),
+            Row(
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage(logo),
+                ),
+                SizedBox(width: 8.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      Text(
+                        phone,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
-                ],
-              ),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    amount,
-                    style: TextStyle(
-                      color: status == "Successful" ? Colors.green : Colors.red,
-                      fontWeight: FontWeight.bold,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: statusColor.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            icon,
+                            color: statusColor,
+                            size: 16.0,
+                          ),
+                          SizedBox(width: 4.0),
+                          Text(
+                            status,
+                            style: TextStyle(
+                              color: statusColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    status,
-                    style: TextStyle(
-                      color: status == "Successful" ? Colors.green : Colors.red,
+                    SizedBox(height: 4.0),
+                    Text(
+                      amount,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
                     ),
-                  ),
-                  if (isFavorite) Icon(Icons.star, color: Colors.amber),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+            SizedBox(height: 8.0),
+            Divider(),
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.person,
+                  color: Colors.grey,
+                ),
+                SizedBox(width: 8.0),
+                Text(
+                  type,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                SizedBox(width: 8.0),
+                Text(
+                  "•",
+                  style: TextStyle(
+                    color
